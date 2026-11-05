@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人博客</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background-color: #f5f6fa;
+            color: #2d3436;
+            line-height: 1.7;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0984e3;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea, #764ba3);
+            color: #fff;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 10px 0;
+        }
+
+        nav li {
+            margin: 0 20px;
+        }
+
+        nav a {
+            padding: 8px 0;
+            font-weight: 500;
+            color: #2d3436;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        nav a:hover {
+            color: #0984e3;
+            border-bottom-color: #0984e3;
+            text-decoration: none;
+        }
+
+        .main {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            padding: 40px 0;
+        }
+
+        .content {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .article {
+            border-bottom: 1px solid #ecf0f1;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+        }
+
+        .article:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .article h2 {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+        }
+
+        .article-meta {
+            color: #95a5a6;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .article-meta span {
+            margin-right: 15px;
+        }
+
+        .article p {
+            color: #575f66;
+        }
+
+        .sidebar {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            border-left: 4px solid #0984e3;
+            padding-left: 10px;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fd79a8, #6c5ce7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #fff;
+            margin: 0 auto 15px;
+        }
+
+        .sidebar p {
+            font-size: 0.95em;
+            color: #575f66;
+            text-align: center;
+        }
+
+        footer {
+            background: #2d3436;
+            color: #b2bec3;
+            text-align: center;
+            padding: 25px 0;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: #0984e3;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 0;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            .main {
+                grid-template-columns: 1fr;
+            }
+            nav li {
+                margin: 0 10px;
+            }
+            .container {
+                padding: 0 15px;
+            }
+            .content, .sidebar {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>✍️ 我的个人博客</h1>
+            <p>记录生活，分享思考</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#">文章</a></li>
+                <li><a href="#">关于我</a></li>
+                <li><a href="#">留言</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container main">
+        <div class="content">
+            <div class="article">
+                <h2><a href="#">我的第一篇博客</a></h2>
+                <div class="article-meta">
+                    <span>📅 2026-11-05</span>
+                    <span>🏷️ 随笔</span>
+                </div>
+                <p>这是博客的第一篇文章。从今天开始，我会在这里记录自己的生活感悟、学习笔记和有趣的知识。欢迎常来逛逛，也欢迎留言交流。</p>
+            </div>
+            <div class="article">
+                <h2><a href="#">技术学习日记：从HTML到前端框架</a></h2>
+                <div class="article-meta">
+                    <span>📅 2026-10-28</span>
+                    <span>🏷️ 技术</span>
+                </div>
+                <p>学习前端开发已经有一段时间了。从最基础的HTML开始，到现在能搭建出这样一个简单的博客页面，每一步都踩了不少坑。分享一段最实用的经验：先从小项目做起，不要只啃理论。</p>
+            </div>
+            <div class="article">
+                <h2><a href="#">今年读过的好书</a></h2>
+                <div class="article-meta">
+                    <span>📅 2026-09-15</span>
+                    <span>🏷️ 阅读</span>
+                </div>
+                <p>推荐几本今年让我觉得受益匪浅的书：《活着》《人类简史》《原子习惯》。每本书都像一面镜子，让我重新审视自己的生活。</p>
+            </div>
+        </div>
+
+        <aside class="sidebar">
+            <h3>关于我</h3>
+            <div class="avatar">👨</div>
+            <p>一个热爱生活的普通人，喜欢写作、阅读和折腾代码。这个博客是我用来自我表达的小天地。</p>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 我的个人博客 · 使用可爱模板 · <a href="#">返回顶部</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我的博客</title>
+<meta name="description" content="个人博客，记录生活、技术与阅读。">
+<style>
+:root{
+  --bg:#f6f7fb;--card:#fff;--text:#1f2430;--muted:#6b7280;--line:#e8eaf0;
+  --brand:#4f6ef7;--brand2:#8b5cf6;--shadow:0 6px 24px rgba(23,32,63,.07);
+  --header:rgba(246,247,251,.82);
+}
+html[data-theme="dark"]{
+  --bg:#0f1116;--card:#181b23;--text:#e7eaf0;--muted:#98a1b2;--line:#262a35;
+  --shadow:0 6px 24px rgba(0,0,0,.45);--header:rgba(15,17,22,.82);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased;
+  transition:background .3s,color .3s}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+.site-header{position:sticky;top:0;z-index:50;background:var(--header);
+  backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:700}
+.logo-mark{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:14px}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{padding:6px 12px;border-radius:8px;font-size:.92rem;color:var(--muted);transition:.2s}
+.nav-links a:hover{color:var(--text);background:var(--card)}
+.icon-btn{width:34px;height:34px;margin-left:6px;border-radius:9px;cursor:pointer;
+  border:1px solid var(--line);background:var(--card);color:var(--text);
+  display:grid;place-items:center;font-size:15px;transition:.2s}
+.icon-btn:hover{border-color:var(--brand);color:var(--brand)}
+.hero{padding:56px 0 30px;text-align:center}
+.hero h1{font-size:2rem;letter-spacing:-.5px;line-height:1.4}
+.hero h1 span{background:linear-gradient(135deg,var(--brand),var(--brand2));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);margin-top:10px;font-size:.96rem}
+.toolbar{display:flex;gap:10px;margin:6px 0 18px}
+.search{flex:1;position:relative}
+.search input{width:100%;padding:10px 14px 10px 36px;border-radius:10px;outline:none;
+  border:1px solid var(--line);background:var(--card);color:var(--text);
+  font-size:.92rem;font-family:inherit;transition:.2s}
+.search input:focus{border-color:var(--brand)}
+.search::before{content:"🔍";position:absolute;left:12px;top:50%;
+  transform:translateY(-50%);font-size:13px;opacity:.55}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.chip{padding:6px 14px;border-radius:999px;cursor:pointer;font-family:inherit;
+  border:1px solid var(--line);background:var(--card);color:var(--muted);
+  font-size:.85rem;transition:.2s}
+.chip:hover{color:var(--brand);border-color:var(--brand)}
+.chip.active{background:linear-gradient(135deg,var(--brand),var(--brand2));
+  color:#fff;border-color:transparent}
+.post-list{display:grid;gap:16px;padding-bottom:44px}
+.post-card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:22px 24px;box-shadow:var(--shadow);cursor:pointer;transition:.25s}
+.post-card:hover{transform:translateY(-3px);border-color:var(--brand)}
+.post-card h2{font-size:1.16rem;line-height:1.5;margin-bottom:8px}
+.post-card p{color:var(--muted);font-size:.94rem;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.meta{display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+  color:var(--muted);font-size:.82rem;margin-top:14px}
+.tag{color:var(--brand);background:rgba(79,110,247,.1);padding:2px 9px;border-radius:6px}
+.empty{text-align:center;padding:60px 0;color:var(--muted)}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);
+  font-size:.9rem;margin-bottom:18px;transition:.2s}
+.back:hover{color:var(--brand)}
+.article,.page-card{background:var(--card);border:1px solid var(--line);
+  border-radius:16px;padding:32px;box-shadow:var(--shadow);margin-bottom:40px}
+.article h1{font-size:1.6rem;line-height:1.45;margin-bottom:14px}
+.article h2{font-size:1.2rem;margin:26px 0 10px}
+.article h3{font-size:1.05rem;margin:20px 0 8px}
+.article p{margin:14px 0}
+.article ul,.article ol{margin:14px 0 14px 22px}
+.article li{margin:6px 0}
+.article blockquote{border-left:3px solid var(--brand);padding:8px 16px;margin:18px 0;
+  color:var(--muted);background:var(--bg);border-radius:0 8px 8px 0}
+.article code{background:var(--bg);padding:2px 6px;border-radius:5px;font-size:.9em}
+.article pre{background:var(--bg);padding:16px;border-radius:10px;
+  overflow-x:auto;margin:16px 0;font-size:.86rem}
+.article pre code{background:none;padding:0}
+.page-card h1{font-size:1.4rem;margin-bottom:16px}
+.page-card p{margin:12px 0}
+.site-footer{border-top:1px solid var(--line);padding:26px 0;
+  text-align:center;color:var(--muted);font-size:.84rem}
+@media(max-width:640px){
+  .hero{padding:38px 0 24px}.hero h1{font-size:1.5rem}
+  .article,.page-card{padding:22px}
+  .post-card{padding:18px 20px}
+  .nav-links a{padding:6px 8px;font-size:.86rem}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="logo" href=" "><span class="logo-mark">✦</span><span>我的博客</span></a >
+    <nav class="nav-links">
+      <a href="#/">首页</a >
+      <a href="#/about">关于</a >
+      <button class="icon-btn" id="themeBtn" title="切换主题">🌙</button>
+    </nav>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer class="site-footer">
+  <div class="wrap">© 2026 我的博客 · 用心记录每一天</div>
+</footer>
+
+<script>
+/* ========== 文章数据：以后加文章在这里复制一段改内容即可 ========== */
+const POSTS = [
+  {
+    id:'hello',
+    title:'你好，这是我的第一篇文章',
+    date:'2026-11-05',
+    tags:['随笔'],
+    excerpt:'建这个博客的想法在脑子里盘旋了很久。有一个属于自己的角落，可以把零散的想法整理成文字，慢慢累积，慢慢生长。',
+    content:`
+      <p>建这个博客的想法，其实在脑子里盘旋了很久。每次看到别人在自己的小站上记录生活，都会生出一点羡慕：有一个属于自己的角落，可以把零散的想法整理成文字。</p >
+      <h2>为什么开始写</h2>
+      <p>写下来和想清楚，是两件事。很多念头在脑子里转的时候显得很有道理，一旦要落成句子，就会发现漏洞百出。写作像一面镜子，逼着我把模糊的感受讲清楚。</p >
+      <blockquote>如果你不能简单地解释一件事，说明你还没有真正理解它。</blockquote>
+      <h2>接下来会写什么</h2>
+      <ul>
+        <li>生活随笔：日常里那些让我停下来想一想的瞬间</li>
+        <li>学习笔记：技术、阅读、做事的经验教训</li>
+        <li>年度总结：给自己留一份可以回看的存档</li>
+      </ul>
+      <p>欢迎常来坐坐，也欢迎留言交流。</p >
+    `
+  },
+  {
+    id:'frontend',
+    title:'前端学习笔记：从 HTML 到第一个网页',
+    date:'2026-10-28',
+    tags:['技术'],
+    excerpt:'记录我从零开始做第一个网页的过程，以及踩过的那些坑。',
+    content:`
+      <p>这篇文章记录我从零开始做第一个网页的过程，以及踩过的坑。</p >
+      <h2>第一步：一个空白的 HTML 文件</h2>
+      <p>新建一个文件，命名为 <code>index.html</code>，输入最基本的骨架：</p >
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-CN"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;我的第一个网页&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      <p>保存后双击打开，浏览器里出现一行大字，那种成就感相当真实。</p >
+      <h2>第二步：理解布局</h2>
+      <p>CSS 里最值得先吃透的是 Flexbox 和 Grid。前者适合一行内的排列，后者适合整体页面分栏。我一开始用浮动布局，绕了很多弯路。</p >
+      <h2>踩过的坑</h2>
+      <ul>
+        <li>忘了写 viewport meta，手机上排版全乱</li>
+        <li>用固定像素宽度，换个屏幕就溢出</li>
+        <li>把样式全写在行内，改一次要翻半天</li>
+      </ul>
+      <p>结论是：先做小项目，遇到问题再查，比从头啃完一本教程有效得多。</p >
+    `
+  },
+  {
+    id:'reading',
+    title:'今年读过的好书推荐',
+    date:'2026-09-15',
+    tags:['阅读'],
+    excerpt:'今年读完的书不算多，但有几本确实改变了我的做事方式。',
+    content:`
+      <p>今年读完的书不算多，但有几本确实改变了我的做事方式，简单记录一下。</p >
+      <h2>《活着》</h2>
+      <p>读的时候几次停下来。它没有讲大道理，只是把一个人一生的重量平铺在纸上。读完最大的感受是，人对生活的忍耐力远超自己的想象。</p >
+      <h2>《人类简史》</h2>
+      <p>它提供了一个拉远镜头的视角：很多我们习以为常的秩序，本质上都是共同想象。</p >
+      <h2>《原子习惯》</h2>
+      <p>这本书最实用的一句话是：不要高估一天能做的事，也别低估一年能做的事。</p >
+      <blockquote>你并不需要变得更有动力，你需要的是让好习惯更容易发生。</blockquote>
+    `
+  },
+  {
+    id:'slow',
+    title:'关于慢下来这件小事',
+    date:'2026-08-30',
+    tags:['随笔'],
+    excerpt:'最近开始有意识地放慢节奏，起因是一件很小的事：走路时习惯性加快脚步，到了目的地却想不起路上经过了什么。',
+    content:`
+      <p>最近开始有意识地放慢节奏，起因是一件很小的事：走路时习惯性加快脚步，到了目的地却想不起路上经过了什么。</p >
+      <h2>效率的错觉</h2>
+      <p>我们常把「更快」等同于「更好」。但很多事情并不遵循这个逻辑——读一本书、学一项技能，都需要时间自己发酵，加速只会让它变浅。</p >
+      <h2>三个小尝试</h2>
+      <ol>
+        <li>吃饭时不看手机，只吃饭</li>
+        <li>每天留半小时什么都不做</li>
+        <li>一次只做一件事，做完再开下一个</li>
+      </ol>
+      <p>坚持了两周，谈不上脱胎换骨，但确实感觉日子变长了一点。</p >
+    `
+  }
+];
+
+/* ========== 工具 ========== */
+const app = document.getElementById('app');
+const state = { keyword:'', tag:'全部' };
+
+function allTags(){
+  const s = new Set();
+  POSTS.forEach(p => p.tags.forEach(t => s.add(t)));
+  return ['全部', ...s];
+}
+function esc(str){
+  return String(str).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+}
+
+/* ========== 首页 ========== */
+function renderHome(){
+  app.innerHTML = `
+    <section class="hero">
+      <h1>你好，我是 <span>阿元</span> 👋</h1>
+      <p>在这里记录生活、技术与阅读的碎片</p >
+    </section>
+    <div class="wrap">
+      <div class="toolbar">
+        <div class="search"><input id="kw" type="text" placeholder="搜索标题或内容..." value="${esc(state.keyword)}"></div>
+      </div>
+      <div class="chips" id="chips"></div>
+      <div class="post-list" id="list"></div>
+    </div>`;
+
+  document.getElementById('chips').innerHTML = allTags().map(t =>
+    `<button class="chip ${t===state.tag?'active':''}" data-tag="${esc(t)}">${esc(t)}</button>`
+  ).join('');
+
+  document.getElementById('chips').onclick = e => {
+    const b = e.target.closest('.chip');
+    if(!b) return;
+    state.tag = b.dataset.tag;
+    renderList();
+    document.querySelectorAll('.chip').forEach(c =>
+      c.classList.toggle('active', c.dataset.tag === state.tag));
+  };
+
+  document.getElementById('kw').oninput = e => {
+    state.keyword = e.target.value.trim().toLowerCase();
+    renderList();
+  };
+
+  renderList();
+}
+
+function renderList(){
+  const box = document.getElementById('list');
+  const list = POSTS.filter(p => {
+    const okTag = state.tag === '全部' || p.tags.includes(state.tag);
+    const okKw = !state.keyword ||
+      p.title.toLowerCase().includes(state.keyword) ||
+      p.excerpt.toLowerCase().includes(state.keyword) ||
+      p.content.toLowerCase().includes(state.keyword);
+    return okTag && okKw;
+  }).sort((a,b) => a.date < b.date ? 1 : -1);
+
+  if(!list.length){
+    box.innerHTML = '<div class="empty">没有找到相关文章 🥲</div>';
+    return;
+  }
+
+  box.innerHTML = list.map(p => `
+    <article class="post-card" data-id="${p.id}">
+      <h2>${esc(p.title)}</h2>
+      <p>${esc(p.excerpt)}</p >
+      <div class="meta">
+        <span>📅 ${p.date}</span>
+        ${p.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}
+      </div>
+    </article>`).join('');
+
+  box.onclick = e => {
+    const card = e.target.closest('.post-card');
+    if(card) location.hash = '#/post/' + card.dataset.id;
+  };
+}
+
+/* ========== 文章详情 ========== */
+function renderPost(id){
+  const p = POSTS.find(x => x.id === id);
+  if(!p){
+    app.innerHTML = '<div class="wrap"><div class="empty">文章不存在 <a href="#/">返回首页</a ></div></div>';
+    return;
+  }
+  app.innerHTML = `
+    <div class="wrap" style="padding-top:28px">
+      <a class="back" href="#/">← 返回首页</a >
+      <article class="article">
+        <h1>${esc(p.title)}</h1>
+        <div class="meta" style="margin-top:0;margin-bottom:20px">
+          <span>📅 ${p.date}</span>
+          ${p.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}
+        </div>
+        ${p.content}
+      </article>
+    </div>`;
+  window.scrollTo(0,0);
+}
+
+/* ========== 关于页 ========== */
+function renderAbout(){
+  app.innerHTML = `
+    <div class="wrap" style="padding-top:28px">
+      <a class="back" href="#/">← 返回首页</a >
+      <div class="page-card">
+        <h1>关于我</h1>
+        <p>你好，我是阿元，一个喜欢写点东西的普通人。</p >
+        <p>这个博客是我用来自我表达的小天地，主要记录三类内容：生活随笔、学习笔记、读书感受。</p >
+        <h2 style="font-size:1.1rem;margin:22px 0 10px">联系方式</h2>
+        <p>邮箱：hello@example.com</p >
+        <p>GitHub：github.com/yourname</p >
+        <p style="color:var(--muted);font-size:.9rem;margin-top:20px">想改这些信息，直接编辑 index.html 里的「关于页」部分即可。</p >
+      </div>
+    </div>`;
+  window.scrollTo(0,0);
+}
+
+/* ========== 路由 ========== */
+function router(){
+  const hash = location.hash || '#/';
+  if(hash.startsWith('#/post/')){
+    renderPost(hash.replace('#/post/',''));
+  } else if(hash === '#/about'){
+    renderAbout();
+  } else {
+    renderHome();
+  }
+}
+window.addEventListener('hashchange', router);
+
+/* ========== 主题切换 ========== */
+const themeBtn = document.getElementById('themeBtn');
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+themeBtn.onclick = () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  themeBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+};
+
+/* ========== 启动 ========== */
+router();
+</script>
+</body>
+</html>
